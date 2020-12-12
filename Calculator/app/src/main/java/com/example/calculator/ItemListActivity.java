@@ -2,14 +2,17 @@ package com.example.calculator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.calculator.poco.CalculatorItem;
+import com.example.calculator.utility.PdfUtility;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -19,7 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.calculator.dummy.DummyContent;
+import com.example.calculator.utility.DataUtility;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ import java.util.List;
  * item details side-by-side using two vertical panes.
  */
 public class ItemListActivity extends AppCompatActivity {
-    Button buttonClearList;
+    Button buttonClearList, buttonSaveListPDF;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -72,21 +75,31 @@ public class ItemListActivity extends AppCompatActivity {
         setupRecyclerView((RecyclerView) getRecyclerView());
 
         buttonClearList = (Button) findViewById(R.id.buttonClearList);
+        buttonSaveListPDF = (Button) findViewById(R.id.buttonSaveListPDF);
 
         buttonClearList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 RecyclerView recView = ((RecyclerView) getRecyclerView());
                 int itemCount = recView.getAdapter().getItemCount();
-                DummyContent.removeItems();
+                DataUtility.removeItems();
                 Snackbar.make(view, "Items deleted: "+itemCount+".", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 recView.getAdapter().notifyDataSetChanged();
+            }
+        });
+
+        buttonSaveListPDF.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+            @Override
+            public void onClick(View view) {
+                String path = PdfUtility.printPDF("test");
+                Snackbar.make(view, "PDF created at "+ path +".", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DataUtility.ITEMS, mTwoPane));
     }
 
     public static View getRecyclerView() {

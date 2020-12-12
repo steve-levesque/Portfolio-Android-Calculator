@@ -7,11 +7,10 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.calculator.dummy.DummyContent;
+import com.example.calculator.utility.DataUtility;
 import com.example.calculator.poco.CalculatorItem;
 
 public class MainActivity extends AppCompatActivity {
-
     Button button0, button1, button2, button3, button4, button5, button6,
             button7, button8, button9, buttonAdd, buttonSub, buttonDivision,
             buttonMul, button10, buttonC, buttonEqual;
@@ -189,12 +188,12 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 CalculatorItem save = new CalculatorItem(
-                        String.valueOf(DummyContent.count() + 1),
+                        String.valueOf(DataUtility.count() + 1),
                         "Response = "+editText.getText(),
                         "Equation: "+ mValueOne + " " + symbolMath + " " + mValueTwo
                 );
 
-                DummyContent.addItem(save);
+                DataUtility.addItem(save);
                 ((RecyclerView) ItemListActivity.getRecyclerView()).getAdapter().notifyDataSetChanged();
             }
         });

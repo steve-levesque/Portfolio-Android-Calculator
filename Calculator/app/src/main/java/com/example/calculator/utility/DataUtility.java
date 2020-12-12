@@ -1,4 +1,4 @@
-package com.example.calculator.dummy;
+package com.example.calculator.utility;
 
 import com.example.calculator.poco.CalculatorItem;
 
@@ -8,24 +8,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
+ * Utility class for manipulation of data on the app.
  */
-public class DummyContent {
-
-    /**
-     * An array of sample (dummy) items.
-     */
-    public static final List<CalculatorItem> ITEMS = new ArrayList<CalculatorItem>();
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    public static final Map<String, CalculatorItem> ITEM_MAP = new HashMap<String, CalculatorItem>();
-
+public class DataUtility {
     private static final int COUNT = 2;
+    public static final List<CalculatorItem> ITEMS = new ArrayList<CalculatorItem>();
+    public static final Map<String, CalculatorItem> ITEM_MAP = new HashMap<String, CalculatorItem>();
 
     static {
         // Add some sample items.
@@ -49,15 +37,11 @@ public class DummyContent {
     }
 
     private static CalculatorItem createDummyItem(int position) {
-        return new CalculatorItem(String.valueOf(position), "Item " + position, makeDetails(position));
-    }
-
-    private static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
         builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+        builder.append("\nMore details information here about item " + position + ".");
+        String result = builder.toString();
+
+        return new CalculatorItem(String.valueOf(position), "Item " + position, result);
     }
 }
