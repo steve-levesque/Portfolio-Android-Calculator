@@ -3,7 +3,7 @@ package com.example.calculator;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.example.calculator.poco.CalculatorItem;
+import com.example.calculator.models.CalculatorItem;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.calculator.utility.DataUtility;
+import com.example.calculator.utilities.DataUtility;
 
 /**
  * A fragment representing a single Item detail screen.

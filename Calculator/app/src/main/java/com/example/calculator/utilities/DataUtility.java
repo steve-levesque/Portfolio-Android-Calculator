@@ -1,6 +1,6 @@
-package com.example.calculator.utility;
+package com.example.calculator.utilities;
 
-import com.example.calculator.poco.CalculatorItem;
+import com.example.calculator.models.CalculatorItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
  * Utility class for manipulation of data on the app.
  */
 public class DataUtility {
-    private static final int COUNT = 2;
+    private static final int COUNT = 1000;
     public static final List<CalculatorItem> ITEMS = new ArrayList<CalculatorItem>();
     public static final Map<String, CalculatorItem> ITEM_MAP = new HashMap<String, CalculatorItem>();
 

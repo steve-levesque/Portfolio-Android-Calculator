@@ -11,18 +11,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.calculator.poco.CalculatorItem;
-import com.example.calculator.utility.PdfUtility;
+import com.example.calculator.models.CalculatorItem;
+import com.example.calculator.utilities.PdfUtility;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.calculator.utility.DataUtility;
+import com.example.calculator.utilities.DataUtility;
 
 import java.util.List;
 
@@ -36,6 +39,7 @@ import java.util.List;
  */
 public class ItemListActivity extends AppCompatActivity {
     Button buttonClearList, buttonSaveListPDF;
+    ProgressBar spinner;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -47,6 +51,7 @@ public class ItemListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_list);
+        spinner = (ProgressBar) findViewById(R.id.progressSpinner);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -91,9 +96,18 @@ public class ItemListActivity extends AppCompatActivity {
         buttonSaveListPDF.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
-            public void onClick(View view) {
-                String path = PdfUtility.printPDF("test");
-                Snackbar.make(view, "PDF created at "+ path +".", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+            public void onClick(final View view) {
+                spinner.setVisibility(View.VISIBLE);
+
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String path = PdfUtility.printPDF(DataUtility.ITEMS);
+                        Snackbar.make(view, "PDF created at "+ path +".", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        spinner.setVisibility(View.GONE);
+                    }
+                }, 500);
             }
         });
     }

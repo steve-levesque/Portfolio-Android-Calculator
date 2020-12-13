@@ -7,8 +7,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.calculator.utility.DataUtility;
-import com.example.calculator.poco.CalculatorItem;
+import com.example.calculator.utilities.DataUtility;
+import com.example.calculator.models.CalculatorItem;
 
 public class MainActivity extends AppCompatActivity {
     Button button0, button1, button2, button3, button4, button5, button6,

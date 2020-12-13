@@ -1,4 +1,4 @@
-package com.example.calculator.poco;
+package com.example.calculator.models;
 
 public class CalculatorItem {
     public final String id;
