@@ -1,3 +1,4 @@
+
 package com.example.calculator;
 
 import android.content.Context;
@@ -40,6 +41,8 @@ import java.util.List;
 public class ItemListActivity extends AppCompatActivity {
     Button buttonClearList, buttonSaveListPDF;
     ProgressBar spinner;
+    Handler handler;
+    int clickSpinnerDelay = 250;
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -50,6 +53,8 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        handler = new Handler();
         setContentView(R.layout.activity_item_list);
         spinner = (ProgressBar) findViewById(R.id.progressSpinner);
 
@@ -84,12 +89,21 @@ public class ItemListActivity extends AppCompatActivity {
 
         buttonClearList.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                RecyclerView recView = ((RecyclerView) getRecyclerView());
-                int itemCount = recView.getAdapter().getItemCount();
-                DataUtility.removeItems();
-                Snackbar.make(view, "Items deleted: "+itemCount+".", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                recView.getAdapter().notifyDataSetChanged();
+            public void onClick(final View view) {
+                spinner.setVisibility(View.VISIBLE);
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        RecyclerView recView = ((RecyclerView) getRecyclerView());
+                        int itemCount = recView.getAdapter().getItemCount();
+                        DataUtility.removeItems();
+                        Snackbar.make(view, "Items deleted: "+itemCount+".", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        recView.getAdapter().notifyDataSetChanged();
+                        spinner.setVisibility(View.GONE);
+                    }
+                }, clickSpinnerDelay);
+
             }
         });
 
@@ -99,7 +113,6 @@ public class ItemListActivity extends AppCompatActivity {
             public void onClick(final View view) {
                 spinner.setVisibility(View.VISIBLE);
 
-                Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -107,7 +120,7 @@ public class ItemListActivity extends AppCompatActivity {
                         Snackbar.make(view, "PDF created at "+ path +".", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                         spinner.setVisibility(View.GONE);
                     }
-                }, 500);
+                }, clickSpinnerDelay);
             }
         });
     }
