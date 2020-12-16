@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Utility class for manipulation of data on the app.
+ * Utility class
+ * Used for manipulation of data on the app.
  */
 public class DataUtility {
     private static final int COUNT = 1000;

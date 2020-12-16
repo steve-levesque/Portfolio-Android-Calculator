@@ -42,11 +42,9 @@ public class ItemListActivity extends AppCompatActivity {
     Button buttonClearList, buttonSaveListPDF;
     ProgressBar spinner;
     Handler handler;
+    FloatingActionButton fab;
+    Toolbar toolbar;
     int clickSpinnerDelay = 250;
-    /**
-     * Whether or not the activity is in two-pane mode, i.e. running on a tablet
-     * device.
-     */
     private boolean mTwoPane;
     private static View recyclerView;
 
@@ -56,37 +54,34 @@ public class ItemListActivity extends AppCompatActivity {
 
         handler = new Handler();
         setContentView(R.layout.activity_item_list);
-        spinner = (ProgressBar) findViewById(R.id.progressSpinner);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        spinner = (ProgressBar) findViewById(R.id.progressSpinner);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        buttonClearList = (Button) findViewById(R.id.buttonClearList);
+        buttonSaveListPDF = (Button) findViewById(R.id.buttonSaveListPDF);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ItemListActivity.this, MainActivity.class);
-                startActivity(intent);
-                // Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-            }
-        });
-
-        if (findViewById(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        }
 
         recyclerView = findViewById(R.id.item_list);
         assert getRecyclerView() != null;
         setupRecyclerView((RecyclerView) getRecyclerView());
 
-        buttonClearList = (Button) findViewById(R.id.buttonClearList);
-        buttonSaveListPDF = (Button) findViewById(R.id.buttonSaveListPDF);
+        // The detail container view will be present only in the (res/values-w900dp).
+        // If this view is present, then the activity should be in two-pane mode.
+        if (findViewById(R.id.item_detail_container) != null) mTwoPane = true;
 
+        // Float button used to open the calculator interface.
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ItemListActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Removes all items from the list with DataUtility and RecyclerView adapter notify.
         buttonClearList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -107,6 +102,7 @@ public class ItemListActivity extends AppCompatActivity {
             }
         });
 
+        // Saves the data with the PdfUtility.
         buttonSaveListPDF.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
@@ -146,9 +142,7 @@ public class ItemListActivity extends AppCompatActivity {
                     arguments.putString(ItemDetailFragment.ARG_ITEM_ID, item.id);
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
-                    mParentActivity.getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.item_detail_container, fragment)
-                            .commit();
+                    mParentActivity.getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
                 } else {
                     Context context = view.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
@@ -159,9 +153,7 @@ public class ItemListActivity extends AppCompatActivity {
             }
         };
 
-        SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<CalculatorItem> items,
-                                      boolean twoPane) {
+        SimpleItemRecyclerViewAdapter(ItemListActivity parent, List<CalculatorItem> items, boolean twoPane) {
             mValues = items;
             mParentActivity = parent;
             mTwoPane = twoPane;

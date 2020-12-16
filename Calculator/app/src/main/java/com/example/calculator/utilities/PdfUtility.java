@@ -22,16 +22,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Utility class
+ * Generates PDF files on the device.
+ */
 public class PdfUtility {
+    private static String folder = "Documents";
+    private static String extPath = Environment.getExternalStorageDirectory().toString();
+    private static String extension = ".pdf";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String printPDF(List<CalculatorItem> items) {
-        String ext = Environment.getExternalStorageDirectory().toString();
-        File fol = new File(ext, "Documents");
+        File fol = new File(extPath, folder);
 
         try {
-            Date d = new Date();
-            final File file = new File(fol, d + ".pdf");
+            Date date = new Date();
+            final File file = new File(fol, date + extension);
             file.createNewFile();
             FileOutputStream fOut = new FileOutputStream(file);
 
@@ -55,6 +61,8 @@ public class PdfUtility {
                 counterIdx++;
                 counter += itemskip;
 
+                // Create a new page when the current one is full.
+                // At the same time, reopens a new FileOutputStream to dodge data saturation problems.
                 if (counter % (itemskip*itemsPerPage+initialLineSkip) == 0) {
                     Log.i("PDF","Reached at item id: "+item.id + ", Items list size: " + items.size());
                     document.finishPage(page);

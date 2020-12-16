@@ -10,6 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.calculator.utilities.DataUtility;
 import com.example.calculator.models.CalculatorItem;
 
+/**
+ * Class for the calculator interface. Responsible for the arithmetic operations. Pressing equal after
+ * an operation of two numbers saves the result and the operation to the {@link ItemListActivity}
+ *
+ * TODO : Utility class for arithmetic operations.
+ * TODO : Fix bug on arithmetic operations > 2
+ */
 public class MainActivity extends AppCompatActivity {
     Button button0, button1, button2, button3, button4, button5, button6,
             button7, button8, button9, buttonAdd, buttonSub, buttonDivision,
