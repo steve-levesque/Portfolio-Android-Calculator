@@ -29,7 +29,11 @@ The application required read/write permission on your device. This is needed fo
 - Java is used as the coding language.
 - Android studio 4.0.1
 
-## How to run app or code
+### Unit Tests
+- Current coverage: 6%.
+<img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/master/Screenshots/Coverage_UnitTest.png" alt="Coverage list."/>
+
+## How to run app, code or tests
 ### All cases
 - Download the roject and run on Android Studio.
 ### Exterior device
@@ -39,3 +43,6 @@ The application required read/write permission on your device. This is needed fo
 ### Emulator
 - Download and install on Android Studio an adequate API with a phone design of choice. (in general prompts of the IDE are intuitive)
 - Select your emulator and run code.
+### Tests
+- InstrumentedTest: Choose physical device and Ctrl+Shift+F10 or right click -> Run "Instrumented_testname".
+- UnitTest: Ctrl+Shift+F10 or right click -> Run "Unit_testname" with Coverage.
