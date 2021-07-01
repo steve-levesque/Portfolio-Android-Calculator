@@ -28,13 +28,13 @@ Shows information about the operation (total and equation).
 
 Item list of saved operations |  Calculator          | Details about an operation
 :-------------------------:|:-------------------------:|:----------------------------:
-<img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/master/Screenshots/ItemList.jpg" alt="List of items within the app." width="200"/>  |  <img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/master/Screenshots/Calculator.jpg" alt="Calculator interface." width="200"/> | <img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/master/Screenshots/SaveItem.jpg" alt="Saved item from the list." width="200"/>
+<img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/main/Screenshots/ItemList.jpg" alt="List of items within the app." width="200"/>  |  <img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/main/Screenshots/Calculator.jpg" alt="Calculator interface." width="200"/> | <img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/main/Screenshots/SaveItem.jpg" alt="Saved item from the list." width="200"/>
 
 ### Unit Tests
 - Current coverage: 6%.
 - JUnit tests
 - 2 types: material and code oriented.
-<img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/master/Screenshots/Coverage_UnitTest.png" alt="Coverage list."/>
+<img src="https://github.com/steve-levesque/Portfolio-Android-Calculator/blob/main/Screenshots/Coverage_UnitTest.png" alt="Coverage list."/>
 
 
 <!-- Repo's Content Tree -->
